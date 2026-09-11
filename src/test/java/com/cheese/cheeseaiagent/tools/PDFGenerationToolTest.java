@@ -2,6 +2,8 @@ package com.cheese.cheeseaiagent.tools;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -22,7 +24,7 @@ class PDFGenerationToolTest {
         String fileName = "程序员cheese的首页.pdf";
         String content = "程序员cheese的首页 https://blog.csdn.net/ljz66254";
         // 执行 PDF 生成
-        String result = tool.generatePDF(fileName, content);
+        String result = tool.generatePDF(fileName, content, List.of());
         // 断言返回结果不为空
         assertNotNull(result);
     }

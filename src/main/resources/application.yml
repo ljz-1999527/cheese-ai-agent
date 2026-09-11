@@ -1,0 +1,78 @@
+spring:
+  application:
+    name: cheese-ai-agent
+#  profiles:
+#    active: local
+# 临时注释掉，便于大家开发调试和部署（实际填写 PgVector 数据库信息）
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cheese_ai_agent
+    username: postgres
+    password: difyai123456
+  # 排除 DashScope 全部自动配置：本地未配置 api-key 时避免启动报错，默认使用 Ollama
+  # 上线切回 DashScope 时：取消下方 dashscope 段注释并填写 api-key，然后删除本 autoconfigure.exclude 配置
+  autoconfigure:
+    exclude: com.alibaba.cloud.ai.autoconfigure.dashscope.DashScopeChatAutoConfiguration,com.alibaba.cloud.ai.autoconfigure.dashscope.DashScopeEmbeddingAutoConfiguration,com.alibaba.cloud.ai.autoconfigure.dashscope.DashScopeAgentAutoConfiguration,com.alibaba.cloud.ai.autoconfigure.dashscope.DashScopeImageAutoConfiguration,com.alibaba.cloud.ai.autoconfigure.dashscope.DashScopeAudioSpeechAutoConfiguration,com.alibaba.cloud.ai.autoconfigure.dashscope.DashScopeAudioTranscriptionAutoConfiguration,com.alibaba.cloud.ai.autoconfigure.dashscope.DashScopeRerankAutoConfiguration
+  ai:
+#    dashscope:
+#      # 需要替换为你自己的 key
+#      api-key: your-api-key
+#      chat:
+#        options:
+#          model: qwen-plus
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: qwen3.5:9b #gemma3:1b
+        options:
+          # 增大上下文窗口：默认 4096 会被多轮记忆+长系统提示词顶满，导致模型空响应
+          # 本机可跑 16384，内存吃紧可回退 8192
+          num-ctx: 16384
+      embedding:
+        options:
+          model: nomic-embed-text
+# 临时注释掉，便于大家开发调试和部署（实际需要启动 MCP 服务）
+    mcp:
+      client:
+        request-timeout: 120s
+        sse:
+          connections:
+            server1:
+              url: http://localhost:8127
+#        stdio:
+#          servers-configuration: classpath:mcp-servers.json
+# 临时注释掉，便于大家开发调试和部署（实际需要启动 PgVector 数据库）
+#    vectorstore:
+#      pgvector:
+#        index-type: HNSW
+#        dimensions: 1536
+#        distance-type: COSINE_DISTANCE
+#        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
+server:
+  port: 8123
+  servlet:
+    context-path: /api
+# springdoc-openapi config
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.cheese.cheeseaiagent.controller
+# knife4j config
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+# searchAPI
+search-api:
+  # 需要替换为你自己的 key
+  api-key: XMsJYp7L8nzxaysZAkimvoF6
+# 修改日志级别，查看 Spring AI 更多调用细节
+logging:
+  level:
+    org.springframework.ai: INFO

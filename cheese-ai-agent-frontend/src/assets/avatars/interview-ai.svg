@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="32" fill="url(#bg)"/>
+  <!-- 面试官头像:放大镜 + 笑脸 -->
+  <g fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 放大镜 -->
+    <circle cx="24" cy="26" r="10"/>
+    <line x1="32" y1="34" x2="44" y2="46"/>
+    <!-- 笑脸 -->
+    <circle cx="38" cy="22" r="1.5" fill="#fff" stroke="none"/>
+    <circle cx="46" cy="22" r="1.5" fill="#fff" stroke="none"/>
+    <path d="M36 29 Q42 34 48 29"/>
+  </g>
+</svg>

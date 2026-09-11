@@ -15,7 +15,6 @@ import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * PDF 生成工具（供 AI 智能体调用）
@@ -28,16 +27,14 @@ public class PDFGenerationTool {
     /**
      * 根据内容生成 PDF 文件
      *
-     * @param fileName  生成的 PDF 文件名
-     * @param content   要写入 PDF 的内容
-     * @param imageUrls 可选的网络图片 URL 列表（可为空）
+     * @param fileName 生成的 PDF 文件名
+     * @param content  要写入 PDF 的内容
      * @return 生成成功提示或错误信息
      */
     @Tool(description = "Generate a PDF file with given content and optional images. IMPORTANT: When the user requests PDF output (以 PDF 格式输出 / 生成 PDF / PDF 文件), you MUST use this tool, never writeFile. Pass network image URLs via imageUrls to render them into the PDF.", returnDirect = false)
     public String generatePDF(
             @ToolParam(description = "Name of the file to save the generated PDF") String fileName,
-            @ToolParam(description = "Content to be included in the PDF") String content,
-            @ToolParam(description = "Optional list of network image URLs to render into the PDF") List<String> imageUrls) {
+            @ToolParam(description = "Content to be included in the PDF") String content) {
         // 拼接 PDF 保存目录与完整路径
         String fileDir = FileConstant.FILE_SAVE_DIR + "/pdf";
         String filePath = fileDir + "/" + fileName;

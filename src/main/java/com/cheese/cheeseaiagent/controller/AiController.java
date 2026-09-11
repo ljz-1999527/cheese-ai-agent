@@ -1,7 +1,6 @@
 package com.cheese.cheeseaiagent.controller;
 
 import com.cheese.cheeseaiagent.agent.CheeseManus;
-import com.cheese.cheeseaiagent.agent.YuManus;
 import com.cheese.cheeseaiagent.app.InterViewApp;
 import com.cheese.cheeseaiagent.app.OllamaNativeChatService;
 import jakarta.annotation.Resource;
